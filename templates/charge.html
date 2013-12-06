@@ -1,0 +1,60 @@
+<html>
+  <head>
+      <title>Hello Conekta Python Flask - Subscribe</title>
+      <script type="text/javascript" src="https://s3.amazonaws.com/conektaapi/v0.3.0/js/conekta.js"></script>
+  </head>
+  <body id="card_form">
+     <div id="error_message"></div>
+    <form id="submit_token_id_form" method="POST" action="/charges">
+      <input name="token_id" type="hidden" id="token_id">
+      <span class="left"><label>Amount</label><input name="amount" type="text"></span>
+      <span class="left"><label>Description</label><input name="description" type="text"></span>
+    </form>
+    <form>
+      <span class="left"><label>Card Name</label><input data-conekta="card[name]" type="text"></span>
+      <span class="left"><label>Card Number</label><input data-conekta="card[number]" type="text"></span>
+      <span class="left"><label>Card Expiry Month</label><input data-conekta="card[exp_month]" type="text"></span>
+      <span class="left"><label>Card Expiry Year</label><input data-conekta="card[exp_year]" type="text"></span>
+      <span class="left"><label>Card CVC</label><input data-conekta="card[cvc]" type="text"></span>
+    </form>
+    <button id="submit_card_form" class="left">Submit</button>
+
+
+    <script>
+      //Success callback for tokenization responses
+      var tokenization_success_callback = function(token){
+        var $submit_token_id_form = document.getElementById('submit_token_id_form');
+        var $token_id_input = document.getElementById('token_id');
+
+        $token_id_input.value = token.id;
+        $submit_token_id_form.submit();
+      }
+
+      //Failure callback for tokenization responses
+      var tokenization_failure_callback = function(error_response){
+        var $error_message = document.getElementById('error_message');
+        $error_message.innerHTML = error_response.message;
+      }
+
+      //Tokenize a card whenever the submit button is pressed
+      var $submit_button = document.getElementById('submit_card_form');
+      $submit_button.onclick = function(){
+        Conekta.setPublishableKey('EpnQNGMghzDrytvfpqtG');
+
+        var $token_form = document.getElementById('card_form');
+        Conekta.token.create($token_form, tokenization_success_callback, tokenization_failure_callback);
+      }
+    </script>
+    <style>
+      .left{
+        float:left;
+        display:block;
+        clear:both;
+      }
+
+      .hidden{
+        display:none;
+      }
+    </style>
+  </body>
+</html>
