@@ -1,1 +1,4 @@
-A simple flask application to show the use of card tokenization and subscriptions.
+hello-conekta-python-flask
+==========================
+
+Bare bones flask app which implements payment calls via conekta-python.
