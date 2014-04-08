@@ -17,7 +17,7 @@ def index():
 def subscription_create():
     conekta.api_key = '1tv5yJp3xnVZ7eK67m4h'
 
-    plan = conekta.Plan.retrieve('gold-plan')
+    plan = conekta.Plan.find('gold-plan')
 
     customer = conekta.Customer.create({
         'name':request.form['name'],
