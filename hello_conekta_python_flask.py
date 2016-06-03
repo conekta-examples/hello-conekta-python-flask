@@ -40,7 +40,34 @@ def charge_create():
         'amount':request.form['amount'],
         'currency':'MXN',
         'description':request.form['description'],
-        'card':request.form['token_id']
+        'card':request.form['token_id'],
+        "details": {
+            "name":"Arnulfo Quimare",
+            "phone":"403-342-0642",
+            "email":"logan@x-men.org",
+            "line_items": [{
+              "name": "Box of Cohiba S1s",
+              "description": "Imported From Mex.",
+              "unit_price": 20000,
+              "quantity": 1,
+              "sku": "cohb_s1",
+              "type": "food"
+            }],
+            "shipment": {
+              "carrier":"estafeta",
+              "service":"international",
+              "price": 20000,
+              "address": {
+                "street1": "250 Alexis St",
+                "street2": "Interior 303",
+                "street3": "Col. Condesa",
+                "city":"Red Deer",
+                "state":"Alberta",
+                "zip":"T4N 0B8",
+                "country":"Canada"
+              }
+            }
+        }
     })
 
     return render_template('charged_successfully.html', charge=charge)
